@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 A script to open a tex file in i3
 - Opens the corresponding pdf
@@ -20,8 +21,10 @@ parser.add_argument('file', metavar='NAME', help='Latex file name to open')
 
 args = parser.parse_args()
 i3 = Connection()
+i3.command('workspace 1')
 i3.command('split h')
-subprocess.Popen(["alacritty", "--working-directory="+os.getcwd(), "-e", "zsh", "-i", "-c","nvim "+args.file+".tex"])
+time.sleep(0.2)
+subprocess.Popen(["alacritty", "--working-directory="+os.getcwd(), "-e", "/usr/bin/nvim", args.file+".tex"])
 time.sleep(0.2)
 subprocess.Popen(["zathura", args.file+".pdf"])
 time.sleep(0.2)
@@ -31,3 +34,4 @@ subprocess.Popen(["alacritty", "--working-directory="+os.getcwd(), "-e", "zsh", 
 i3.command('focus down')
 time.sleep(0.2)
 i3.command('resize shrink height 40 px or 40 ppt')
+i3.command('focus left')
